@@ -6,7 +6,7 @@ Skills Used: Data Exploration, Filtering, Aggregate Functions, GROUP BY, ORDER B
 
 -- Initial data exploration
 
-SELECT * 
+select * 
 FROM world_layoffs.layoffs_staging2;
 
 -- Maximum layoffs recorded in a single event
