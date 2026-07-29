@@ -6,28 +6,27 @@ Skills Used: Data Exploration, Filtering, Aggregate Functions, GROUP BY, ORDER B
 
 -- Initial data exploration
 
-select * 
+SELECT * 
 FROM world_layoffs.layoffs_staging2;
 
 -- Maximum layoffs recorded in a single event
-
 SELECT MAX(total_laid_off)
 FROM world_layoffs.layoffs_staging2;
 
--- Percentage of workforce laid off (minimum and maximum)
 
+-- Percentage of workforce laid off (minimum and maximum)
 SELECT MAX(percentage_laid_off), MIN(percentage_laid_off)
 FROM world_layoffs.layoffs_staging2
 WHERE percentage_laid_off IS NOT NULL;
 
--- Companies with 100% workforce layoffs
 
+-- Companies with 100% workforce layoffs
 SELECT *
 FROM world_layoffs.layoffs_staging2
 WHERE percentage_laid_off = 1;
 
--- Companies with 100% layoffs ordered by funds raised
 
+-- Companies with 100% layoffs ordered by funds raised
 SELECT *
 FROM world_layoffs.layoffs_staging2
 WHERE percentage_laid_off = 1
@@ -40,51 +39,50 @@ ORDER BY funds_raised_millions DESC;
 -- Aggregated Analysis (GROUP BY)
 
 -- Top 5 largest single layoff events
-
 SELECT company, total_laid_off
 FROM world_layoffs.layoffs_staging
 ORDER BY 2 DESC
 LIMIT 5;
 
--- Companies with the highest total layoffs
 
+-- Companies with the highest total layoffs
 SELECT company, SUM(total_laid_off)
 FROM world_layoffs.layoffs_staging2
 GROUP BY company
 ORDER BY 2 DESC
 LIMIT 10;
 
--- Total layoffs by location
 
+-- Total layoffs by location
 SELECT location, SUM(total_laid_off)
 FROM world_layoffs.layoffs_staging2
 GROUP BY location
 ORDER BY 2 DESC
 LIMIT 10;
 
--- Total layoffs by country
 
+-- Total layoffs by country
 SELECT country, SUM(total_laid_off)
 FROM world_layoffs.layoffs_staging2
 GROUP BY country
 ORDER BY 2 DESC;
 
--- Year-wise layoffs
 
+-- Year-wise layoffs
 SELECT YEAR(date), SUM(total_laid_off)
 FROM world_layoffs.layoffs_staging2
 GROUP BY YEAR(date)
 ORDER BY 1 ASC;
 
--- Total layoffs by industry
 
+-- Total layoffs by industry
 SELECT industry, SUM(total_laid_off)
 FROM world_layoffs.layoffs_staging2
 GROUP BY industry
 ORDER BY 2 DESC;
 
--- Total layoffs by company stage
 
+-- Total layoffs by company stage
 SELECT stage, SUM(total_laid_off)
 FROM world_layoffs.layoffs_staging2
 GROUP BY stage
@@ -97,7 +95,6 @@ ORDER BY 2 DESC;
 -- Advanced Analysis
 
 -- Top 3 companies with the highest layoffs each year
-
 WITH Company_Year AS
 (
     SELECT company,
